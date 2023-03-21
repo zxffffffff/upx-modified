@@ -1167,6 +1167,10 @@ int upx_main(int argc, char *argv[]) {
         argv[0] = default_argv0;
     argv0 = argv[0];
 
+    fprintf(stderr, "========================================\n");
+    fprintf(stderr, "======== modified by zxffffffff ========\n");
+    fprintf(stderr, "========================================\n");
+
     upx_compiler_sanity_check();
     int dt_res = upx_doctest_check(argc, argv);
     if (dt_res != 0) {
