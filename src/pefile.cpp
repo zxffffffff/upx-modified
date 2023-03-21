@@ -25,6 +25,7 @@
    <markus@oberhumer.com>               <ezerotven+github@gmail.com>
  */
 
+#include "modified_by_zxffffffff.h"
 #include "conf.h"
 #include "file.h"
 #include "filter.h"
@@ -2428,8 +2429,8 @@ void PeFile::pack0(OutputFile *fo, ht &ih, ht &oh, unsigned subsystem_mask,
     const unsigned ncsize_virt_increase = soxrelocs && (ncsize & oam1) == 0 ? 8 : 0;
 
     // fill the sections
-    strcpy(osection[0].name, "UPX0");
-    strcpy(osection[1].name, "UPX1");
+    strcpy(osection[0].name, MODIFIED_BY_FLAG"0"); // modified by zxffffffff
+    strcpy(osection[1].name, MODIFIED_BY_FLAG"1"); // modified by zxffffffff
     // after some windoze debugging I found that the name of the sections
     // DOES matter :( .rsrc is used by oleaut32.dll (TYPELIBS)
     // and because of this lame dll, the resource stuff must be the
@@ -2925,7 +2926,7 @@ int PeFile::canUnpack0(unsigned max_sections, unsigned objs, unsigned ih_entry, 
     fi->readx(isection, sizeof(pe_section_t) * objs);
     bool is_packed = (objs <= max_sections && (IDSIZE(15) || ih_entry > isection[1].vaddr));
     bool found_ph = false;
-    if (memcmp(isection[0].name, "UPX", 3) == 0) {
+    if (memcmp(isection[0].name, MODIFIED_BY_FLAG, 3) == 0) { // modified by zxffffffff
         // current version
         fi->seek(isection[1].rawdataptr - 64, SEEK_SET);
         found_ph = readPackHeader(1024);
